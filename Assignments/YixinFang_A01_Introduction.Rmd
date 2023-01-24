@@ -40,7 +40,7 @@ Enter answers to the questions just below the >Answer: prompt.
 1. What are your previous experiences with data analytics, R, and Git? Include both formal and informal training.
 
 > Answer: 
-I do not have any formal training of R, but some of my courses and also my MP require the use of it, so I was learning on the job. I also took some workshops provided by the program and online courses about the basics of R. I have only heard of Git/GitHub but never used it. 
+I do not have any formal training of R, but some of my courses and also my MP require the use of it, so I'm learning on the job. I also took some workshops provided by the program and online courses about the basics of R. I have only heard of Git/GitHub but never used it. 
 
 2. Are there any components of the course about which you feel confident?
 
@@ -58,6 +58,7 @@ I have never dealt with some contents such as time series data and spatial data 
 Provide a link below to your forked course repository in GitHub. Make sure you have pulled all recent changes from the course repository and that you have updated your course README file, committed those changes, and pushed them to your GitHub account. 
 
 > Answer: 
+https://github.com/yxfang430/EDA-Spring2023
 
 ## 4) Knitting
 When you have completed this document, click the `knit` button.This should produce a PDF copy of your markdown document. Submit this PDF to Sakai. 
