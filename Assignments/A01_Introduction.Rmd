@@ -1,6 +1,6 @@
 ---
 title: "Assignment 1: Introduction"
-author: "Student Name"
+author: "Yixin Fang"
 output: pdf_document
 geometry: margin=2.54cm
 ---
@@ -40,14 +40,17 @@ Enter answers to the questions just below the >Answer: prompt.
 1. What are your previous experiences with data analytics, R, and Git? Include both formal and informal training.
 
 > Answer: 
+I do not have any formal training of R, but some of my courses and also my MP require the use of it, so I was learning on the job. I also took some workshops provided by the program and online courses about the basics of R. I have only heard of Git/GitHub but never used it. 
 
 2. Are there any components of the course about which you feel confident?
 
-> Answer: 
+> Answer:
+I have heard of some of the topics that will be covered in this class and know some basic functions related to the topics. 
 
 3. Are there any components of the course about which you feel apprehensive?
 
 > Answer: 
+I have never dealt with some contents such as time series data and spatial data in R, and I'm not sure how deep we will go into each topic. GitHub is also new for me, but I'm glad we can cover this in class and definitely hope to learn more about it.
 
 
 ## 3) GitHub
