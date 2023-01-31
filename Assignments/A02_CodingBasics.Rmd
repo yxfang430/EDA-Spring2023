@@ -1,6 +1,6 @@
 ---
 title: "Assignment 2: Coding Basics"
-author: "Student Name"
+author: "Yixin Fang"
 output: pdf_document
 geometry: margin=2.54cm
 editor_options: 
@@ -32,10 +32,17 @@ This exercise accompanies the lessons in Environmental Data Analytics on coding 
 
 ```{r}
 #1. 
+sequence <- seq(1,100,4) #Create the sequence and name it 
+sequence #Show the result of the sequence 
 
 #2. 
+mean_sequence <- mean(sequence) #Compute the mean of the sequence
+median_sequence <- median(sequence) #Compute the median of the sequence
+mean_sequence
+median_sequence #Show the results of the mean and the median
 
 #3. 
+mean_sequence > median_sequence #See if the mean is larger than the median. The answer is FALSE
 
 ```
 
@@ -50,6 +57,12 @@ This exercise accompanies the lessons in Environmental Data Analytics on coding 
 8.  Label the columns of your data frame with informative titles.
 
 ```{r}
+#5.
+names <- c() #Character
+scores <- c() #
+results <- c()
+
+
 
 ```
 
