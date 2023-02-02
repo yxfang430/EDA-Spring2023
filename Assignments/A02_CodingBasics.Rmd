@@ -66,7 +66,7 @@ results <- c(TRUE, TRUE, TRUE, FALSE) #Logical
 student_test_results <- data.frame(names,scores,results)
 
 #8.
-colnames(students_test_results) <- c('student_names', 'test_scores', 'test_results')
+colnames(student_test_results) <- c('student_names', 'test_scores', 'test_results')
 
 ```
 
