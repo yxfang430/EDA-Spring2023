@@ -148,6 +148,7 @@ summary(USGS.flow.data)  #could point to column only with $
 
 ```
 
+
 What happened to blank cells in the spreadsheet when they were imported into R?
 > Answer: 
 
