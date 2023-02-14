@@ -50,13 +50,15 @@ The completed exercise is due on Friday, Feb 20th @ 5:00pm.
 
 ```
 
----
 
 ## Wrangle individual datasets to create processed files.
 
-3. Change date columns to be date objects
+3. Change date columns to be date objects.
+
 4. Select the following columns: Date, DAILY_AQI_VALUE, Site.Name, AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE
+
 5. For the PM2.5 datasets, fill all cells in AQS_PARAMETER_DESC with "PM2.5" (all cells in this column should be identical).
+
 6. Save all four processed datasets in the Processed folder. Use the same file names as the raw files but replace "raw" with "processed".
 
 ```{r}
