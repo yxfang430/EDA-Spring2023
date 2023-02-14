@@ -74,11 +74,14 @@ NTL.phys.data.JunethruOctober <- filter(NTL.phys.data, daynum %in% c(152:304))
 # Exercise 1: 
 # filter NTL.phys.data for the year 1999
 # what code do you need to use, based on the class of the variable?
-
+NTL.phys.data_1999 <- NTL.phys.data %>%
+  filter(year4 == '1999')
+  
 
 # Exercise 2: 
 # filter NTL.phys.data for Tuesday Lake from 1990 through 1999.
-
+NTL.phys.data_1990_1999 <- NTL.phys.data %>%
+  filter(lakename == 'Tuesday Lake' & 1989 < year4 & year4 < 2000) 
 
 ```
 Question: Why don't we filter using row numbers?
@@ -103,12 +106,21 @@ NTL.phys.data.processed <-
 
 #Exercise 3: Using a pipe filter NTL.phys.data for Tuesday Lake from 1990 
 # through 1999 only for July.
+NTL.phys.data_july <- NTL.phys.data %>%
+  mutate(month = month(sampledate)) %>%
+  filter(lakename == 'Tuesday Lake' & 1989 < year4 & year4 < 2000 & month == 7) 
+#filter(lakename == 'Tuesday Lake' & 1989 < year4 & year4 < 2000 & month(sampledate) == 7)
 
 
 #Exercise 4: Using the data from part 3, a pipe, and the summarize() function 
 # find the mean surface temperature (hints: you will need to add another
 # filter for depth==0). Make sure you eliminate NAs before computing the means.
 
+NTL.phys.data_july_mean <- NTL.phys.data_july %>%
+  filter(depth == 0, !is.na(temperature_C)) %>%
+  summarize(mean = mean(temperature_C)) 
+#filter(depth == 0) %>%
+#drop_na(temperature_C)
   
 ```
 
@@ -122,8 +134,16 @@ For gather we will use `pivot_longer` and for spread we will use `pivot_wider`.
 #  the new column holding the irradiance type as "Irradiance_Type", and name the
 #  new column holding the irradiance values as "Irradiance_Value".
 
+NTL.phys.data.Ex5 <- NTL.phys.data %>%
+  pivot_longer(irradianceDeck:irradianceWater, 
+               names_to = 'Irradiance_Type', values_to = 'Irradiance_Value')
+
+#NTL.phys.data.Ex5 <- NTL.phys.data %>%
+#  pivot_longer(c(irradianceDeck,irradianceWater), 
+#              names_to = 'Irradiance_Type', values_to = 'Irradiance_Value')
 
 #Exercise 6: Spread temperatureC into more than one column based on the depth.
+
 
 ```
 

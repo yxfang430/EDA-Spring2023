@@ -1,6 +1,6 @@
 ---
 title: "Assignment 4: Data Wrangling"
-author: "Student Name"
+author: "Yixin Fang"
 date: "Spring 2023"
 output: pdf_document
 geometry: margin=2.54cm
@@ -44,8 +44,27 @@ The completed exercise is due on Friday, Feb 20th @ 8:00am.
 
 ```{r, message = FALSE}
 #1
+getwd()
+library(tidyverse)
+library(lubridate)
+o3_2018 <- read.csv("./Data/Raw/EPAair_O3_NC2018_raw.csv", stringsAsFactors = T)
+o3_2019 <- read.csv("./Data/Raw/EPAair_O3_NC2019_raw.csv", stringsAsFactors = T)
+PM25_2018 <- read.csv("./Data/Raw/EPAair_PM25_NC2018_raw.csv", stringsAsFactors = T)
+PM25_2019 <- read.csv("./Data/Raw/EPAair_PM25_NC2019_raw.csv", stringsAsFactors = T)
 
 #2
+dim(o3_2018)
+dim(o3_2019)
+dim(PM25_2018)
+dim(PM25_2019)
+colnames(o3_2018)
+colnames(o3_2019)
+colnames(PM25_2018)
+colnames(PM25_2019)
+str(o3_2018)
+str(o3_2019)
+str(PM25_2018)
+str(PM25_2019)
 ```
 
 ## Wrangle individual datasets to create processed files.
