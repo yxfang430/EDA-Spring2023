@@ -11,7 +11,7 @@ geometry: margin=2.54cm
 #For it to work, the "formatR" package needs to be installed
 
 #install.packages('formatR')
-knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy=TRUE)
+#knitr::opts_chunk$set(tidy.opts=list(width.cutoff=80), tidy= TRUE)
 ```
 
 
@@ -44,13 +44,25 @@ The completed exercise is due on Friday, Feb 20th @ 5:00pm.
 library(tidyverse)
 library(lubridate)
 library(here)
+library(magrittr)
 
 #1b 
 getwd()
 
 #1c 
-
+O3_2018 <- read.csv('./Data/Raw/EPAair_O3_NC2018_raw.csv',
+                    stringsAsFactors = T)
+O3_2019 <- read.csv('./Data/Raw/EPAair_O3_NC2019_raw.csv',
+                    stringsAsFactors = T)
+PM25_2018 <- read.csv('./Data/Raw/EPAair_PM25_NC2018_raw.csv',
+                    stringsAsFactors = T)
+PM25_2019 <- read.csv('./Data/Raw/EPAair_PM25_NC2019_raw.csv',
+                    stringsAsFactors = T)
 #2 
+glimpse(O3_2018)
+glimpse(O3_2019)
+glimpse(PM25_2018)
+glimpse(PM25_2019)
 
 ```
 
@@ -67,12 +79,48 @@ getwd()
 
 ```{r}
 #3
-
+O3_2018$Date <- mdy(O3_2018$Date)
+O3_2019$Date <- mdy(O3_2019$Date)
+PM25_2018$Date <- mdy(PM25_2018$Date)
+PM25_2019$Date <- mdy(PM25_2019$Date)
+class(O3_2018$Date)
+class(O3_2019$Date)
+class(PM25_2018$Date)
+class(PM25_2019$Date)
+  
 #4
+O3_2018_select <- select(O3_2018,
+                         Date, DAILY_AQI_VALUE, Site.Name, 
+                         AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+O3_2019_select <- select(O3_2019,
+                         Date, DAILY_AQI_VALUE, Site.Name, 
+                         AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+PM25_2018_select <- select(PM25_2018,
+                         Date, DAILY_AQI_VALUE, Site.Name, 
+                         AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
+PM25_2019_select <- select(PM25_2019,
+                         Date, DAILY_AQI_VALUE, Site.Name, 
+                         AQS_PARAMETER_DESC, COUNTY, SITE_LATITUDE, SITE_LONGITUDE)
 
 #5
+PM25_2018_select %<>%
+  mutate(AQS_PARAMETER_DESC = 'PM2.5')
+PM25_2019_select %<>%
+  mutate(AQS_PARAMETER_DESC = 'PM2.5')
 
 #6
+write.csv(O3_2018_select,
+          row.names = F,
+          file = "./Data/Processed/EPAair_O3_NC2018_processed.csv")
+write.csv(O3_2019_select,
+          row.names = F,
+          file = "./Data/Processed/EPAair_O3_NC2019_processed.csv")
+write.csv(PM25_2018_select,
+          row.names = F,
+          file = "./Data/Processed/EPAair_PM25_NC2018_processed.csv")
+write.csv(PM25_2019_select,
+          row.names = F,
+          file = "./Data/Processed/EPAair_PM25_NC2019_processed.csv")
 
 ```
 
@@ -99,14 +147,33 @@ getwd()
 
 ```{r}
 #7 
+air_combined <- rbind(O3_2018_select, O3_2019_select, PM25_2018_select, PM25_2019_select)
 
 #8 
+air_combined_processing <- air_combined %>%
+  filter(Site.Name %in% c("Linville Falls", "Durham Armory", "Leggett", "Hattie Avenue",
+                          "Clemmons Middle", "Mendenhall School", "Frying Pan Mountain", 
+                          "West Johnston Co.", "Garinger High School", "Castle Hayne", 
+                          "Pitt Agri. Center", "Bryson City", "Millbrook School")) %>%
+  group_by(Date, Site.Name, AQS_PARAMETER_DESC, COUNTY) %>%
+  summarise(AQI_mean = mean(DAILY_AQI_VALUE), 
+            Latitude_mean = mean(SITE_LATITUDE),
+            Longitude_mean = mean(SITE_LONGITUDE)) %>%
+  mutate(Month = month(Date), Year = year(Date))
+glimpse(air_combined_processing)
 
 #9
+air_combined_spread <- air_combined_processing %>%
+  pivot_wider(names_from = AQS_PARAMETER_DESC, values_from = AQI_mean)
+glimpse(air_combined_spread)
 
 #10
+dim(air_combined_spread)
 
 #11
+write.csv(air_combined_spread,
+          row.names = F,
+          file = "./Data/Processed/EPAair_O3_PM25_NC1819_Processed.csv")
 
 ```
 
@@ -120,13 +187,17 @@ getwd()
 ```{r}
 
 #12
-
+air_combined_summary <- air_combined_spread %>%
+  group_by(Site.Name, Month, Year) %>%
+  summarise(ozone_mean = mean(Ozone),
+            PM2.5_mean = mean(PM2.5)) %>%
+  drop_na(ozone_mean)
 
 #13
-
+dim(air_combined_summary)
 
 ```
 
 14. Why did we use the function `drop_na` rather than `na.omit`?
 
-> Answer: 
+> Answer: we can specify which column with NAs we want to drop with the drop_na function while keep NAs in other columns. But the na.omit function will drop all the NA values in the whole data frame. So, if we want to keep the NA values in mean PM2.5, we need to use drop_na function to only drop the missing values in mean ozone.
