@@ -93,16 +93,32 @@ Say we want to plot the number of records each month in the Peter/Paul lakes dat
 
 ```{r Plot the number of records by month}
 #What kind of values are months?
+class(PeterPaul.chem.nutrients$month)
 
 #List unique values
+unique(PeterPaul.chem.nutrients$month)
 
 #Plot how many Lake observations occur each month
+ggplot(PeterPaul.chem.nutrients, aes(x = month)) +
+  geom_bar()
 
 #Convert month to a factor -- with 12 levels, labelled with month names
+factor(PeterPaul.chem.nutrients$month,
+       levels = 1:12,
+       labels = month.abb)
 
 #Try again: Plot how many Lake observations occur each month
+ggplot(PeterPaul.chem.nutrients, aes(x = factor(month))) +
+  geom_bar()
 
 #Alter to include missing months
+ggplot(PeterPaul.chem.nutrients, 
+       aes(x = factor(month, levels = 1:12, labels = month.abb))) + 
+  geom_bar() + # Create 12 levels for 12 months, even though some levels are empty
+  # labels = month.abb shows the labels in three-letter month
+  scale_x_discrete(drop=FALSE) + # drop = F can display the empty levels
+  labs(title = 'My Plot',
+       x = 'Month') # Change the x labels
 
 #Tidy up the code
 
@@ -228,6 +244,12 @@ Exercise: build your own scatterplots of PeterPaul.chem.nutrients
 # Plot surface temperatures by day of  year. 
 # Color your points by year, and facet by lake in two rows.
 # Change the ylab name
+PeterPaul.chem.nutrients %>%
+  filter(depth == '0') %>%
+  ggplot() +
+  geom_point(aes(x = daynum, y = temperature_C, color = year4)) +
+  facet_wrap(vars(lakename), nrow = 2) +
+  labs(y = 'Surface Temperature (°C)')
 
 
 #2. 
@@ -235,7 +257,10 @@ Exercise: build your own scatterplots of PeterPaul.chem.nutrients
 # Change the size of your point to 0.5
 # Change the color palette to magma and play with direction (+- 1), which one makes more sense?
 # Change x axis to include marker/labels every 5 years
-
+PeterPaul.chem.nutrients %>%
+  ggplot() +
+  geom_point(aes(x = sampledate, y = temperature_C, color = depth), size = 0.5) +
+  scale_color_viridis(option = "magma", direction = -1)
 
 
 ```
