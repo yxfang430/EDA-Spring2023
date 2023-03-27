@@ -37,7 +37,7 @@ mytheme <- theme_classic(base_size = 14) +
 theme_set(mytheme)
 
 #Read Eno river data
-EnoDischarge <- read.csv("./Data/Processed/USGS_Site02085000_Flow_Processed.csv",
+EnoDischarge <- read.csv("./Data/Raw/USGS_Site02085000_Flow_Raw.csv",
                          stringsAsFactors = TRUE)
 EnoDischarge$datetime <- as.Date(EnoDischarge$datetime, format = "%Y-%m-%d")
 
